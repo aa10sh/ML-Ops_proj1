@@ -1,0 +1,57 @@
+# =========================
+# Model Feature Contract
+# =========================
+
+required_columns:
+  - subscription_length
+  - customer_age
+  - vehicle_age
+  - region_density
+  - region_code
+  - model
+  - gross_weight
+  - displacement
+  - segment
+  - length
+  - claim_status
+
+
+numerical_columns:
+  - subscription_length
+  - customer_age
+  - vehicle_age
+  - region_density
+  - gross_weight
+  - displacement
+  - length
+  - claim_status
+
+
+categorical_columns:
+  - region_code
+  - model
+  - segment
+
+
+target_column:
+  - claim_status
+
+
+# =========================
+# Data Transformation
+# =========================
+
+num_features:
+  - subscription_length
+  - customer_age
+  - vehicle_age
+  - region_density
+  - gross_weight
+  - displacement
+  - length
+
+
+mm_columns:
+  - subscription_length
+  - vehicle_age
+  - gross_weight
