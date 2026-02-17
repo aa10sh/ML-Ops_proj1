@@ -51,7 +51,8 @@ This project builds a **scalable ML system** to solve this business problem.
 ---
 
 📊 End-to-End MLOps Workflow
-                        ┌────────────────────┐
+
+                            ┌────────────────────┐
                         │  Dataset (CSV)     │
                         └─────────┬──────────┘
                                   │
@@ -91,7 +92,6 @@ This project builds a **scalable ML system** to solve this business problem.
         ┌──────────────┐
         │  User Web UI │
         └──────────────┘
-
 
 # ⚙️ Tech Stack
 
@@ -200,7 +200,7 @@ Developer Push
 GitHub Actions Workflow
       │
       ▼
-Build Docker Image
+Docker Image Build
       │
       ▼
 Push to AWS ECR
@@ -209,7 +209,8 @@ Push to AWS ECR
 Deploy on EC2 Server
       │
       ▼
-Live App Updated Automatically
+Live Production App Updated
+
 
 # 🌐 Web Application
 
