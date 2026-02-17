@@ -19,7 +19,7 @@ This project demonstrates the **complete ML lifecycle**:
 Once your EC2 app is running, add this at the top under the title:
 
 ## 🌍 Live Demo
-🔗 http://54.88.188.192:5080
+🔗 http://54.88.188.192:5000
 
 ---
 
