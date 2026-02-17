@@ -7,7 +7,6 @@ from src.configuration.mongo_db_connection import MongoDBClient
 from src.constants import DATABASE_NAME
 from src.exception import MyException
 
-
 class Proj1Data:
     """
     A class to export MongoDB records as a pandas DataFrame.
@@ -22,62 +21,36 @@ class Proj1Data:
         except Exception as e:
             raise MyException(e, sys)
 
-    def export_collection_as_dataframe(
-        self,
-        collection_name: str,
-        database_name: Optional[str] = None
-    ) -> pd.DataFrame:
+    def export_collection_as_dataframe(self, collection_name: str, database_name: Optional[str] = None) -> pd.DataFrame:
         """
-        Optimized export of MongoDB collection as DataFrame
-        (low-latency, schema-aligned)
+        Exports an entire MongoDB collection as a pandas DataFrame.
+
+        Parameters:
+        ----------
+        collection_name : str
+            The name of the MongoDB collection to export.
+        database_name : Optional[str]
+            Name of the database (optional). Defaults to DATABASE_NAME.
+
+        Returns:
+        -------
+        pd.DataFrame
+            DataFrame containing the collection data, with '_id' column removed and 'na' values replaced with NaN.
         """
         try:
-            # Get collection
+            # Access specified collection from the default or specified database
             if database_name is None:
                 collection = self.mongo_client.database[collection_name]
             else:
                 collection = self.mongo_client[database_name][collection_name]
 
-            print("Fetching data from mongoDB (optimized)")
-
-            # ================================
-            # ONLY required columns
-            # ================================
-            required_columns = [
-                "subscription_length",
-                "vehicle_age",
-                "customer_age",
-                "region_density",
-                "region_code",
-                "segment",
-                "model",
-                "gross_weight",
-                "displacement",
-                "length",
-                "claim_status",
-            ]
-
-            projection = {col: 1 for col in required_columns}
-            projection["_id"] = 0
-
-            # ================================
-            # Batched cursor
-            # ================================
-            cursor = (
-                collection
-                .find({}, projection)
-                .batch_size(5000)
-            )
-
-            # ================================
-            # Fast DataFrame creation
-            # ================================
-            df = pd.DataFrame.from_records(cursor)
-
-            print(f"Data fetched with len: {len(df)}")
-
-            df.replace({"na": np.nan}, inplace=True)
-
+            # Convert collection data to DataFrame and preprocess
+            print("Fetching data from mongoDB")
+            df = pd.DataFrame(list(collection.find()))
+            print(f"Data fecthed with len: {len(df)}")
+            if "id" in df.columns.to_list():
+                df = df.drop(columns=["id"])
+            df.replace({"na":np.nan},inplace=True)
             return df
 
         except Exception as e:

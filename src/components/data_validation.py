@@ -27,26 +27,20 @@ class DataValidation:
         except Exception as e:
             raise MyException(e,sys)
 
-    def validate_required_columns(self, df: DataFrame) -> bool:
-       """
-       Validate presence of only model-required columns
-       """
-       try:
-          required_columns = self._schema_config["required_columns"]
-          dataframe_columns = df.columns
-
-          missing_columns = [
-            col for col in required_columns if col not in dataframe_columns
-        ]
-
-          if missing_columns:
-            logging.info(f"Missing required columns: {missing_columns}")
-            return False
-
-          return True
-       except Exception as e:
-        raise MyException(e, sys)
-
+    def validate_number_of_columns(self, dataframe: DataFrame) -> bool:
+        """
+        Method Name :   validate_number_of_columns
+        Description :   This method validates the number of columns
+        
+        Output      :   Returns bool value based on validation results
+        On Failure  :   Write an exception log and then raise an exception
+        """
+        try:
+            status = len(dataframe.columns) == len(self._schema_config["columns"])
+            logging.info(f"Is required column present: [{status}]")
+            return status
+        except Exception as e:
+            raise MyException(e, sys)
 
     def is_column_exist(self, df: DataFrame) -> bool:
         """
@@ -103,18 +97,17 @@ class DataValidation:
                                  DataValidation.read_data(file_path=self.data_ingestion_artifact.test_file_path))
 
             # Checking col len of dataframe for train/test df
-            status = self.validate_required_columns(df=train_df)
+            status = self.validate_number_of_columns(dataframe=train_df)
             if not status:
-                validation_error_msg += "Required columns missing in training dataframe. "
+                validation_error_msg += f"Columns are missing in training dataframe. "
             else:
-                logging.info("All required columns present in training dataframe")
-            
-            status = self.validate_required_columns(df=test_df)
+                logging.info(f"All required columns present in training dataframe: {status}")
+
+            status = self.validate_number_of_columns(dataframe=test_df)
             if not status:
-                validation_error_msg += "Required columns missing in testing dataframe. "
+                validation_error_msg += f"Columns are missing in test dataframe. "
             else:
-                logging.info("All required columns present in testing dataframe")
-            
+                logging.info(f"All required columns present in testing dataframe: {status}")
 
             # Validating col dtype for train/test df
             status = self.is_column_exist(df=train_df)

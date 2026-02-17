@@ -1,57 +1,40 @@
-# =========================
-# Model Feature Contract
-# =========================
-
-required_columns:
-  - subscription_length
-  - customer_age
-  - vehicle_age
-  - region_density
-  - region_code
-  - model
-  - gross_weight
-  - displacement
-  - segment
-  - length
-  - claim_status
+columns:
+  - id: int
+  - Gender: category
+  - Age: int
+  - Driving_License: int
+  - Region_Code: float
+  - Previously_Insured: int
+  - Vehicle_Age: category
+  - Vehicle_Damage: category
+  - Annual_Premium: float
+  - Policy_Sales_Channel: float
+  - Vintage: int
+  - Response: int
 
 
 numerical_columns:
-  - subscription_length
-  - customer_age
-  - vehicle_age
-  - region_density
-  - gross_weight
-  - displacement
-  - length
-  - claim_status
-
+  - Age
+  - Driving_License
+  - Region_Code
+  - Previously_Insured
+  - Annual_Premium
+  - Policy_Sales_Channel
+  - Vintage
+  - Response
 
 categorical_columns:
-  - region_code
-  - model
-  - segment
+  - Gender
+  - Vehicle_Age
+  - Vehicle_Damage
 
+drop_columns: _id
 
-target_column:
-  - claim_status
-
-
-# =========================
-# Data Transformation
-# =========================
-
+# for data transformation
 num_features:
-  - subscription_length
-  - customer_age
-  - vehicle_age
-  - region_density
-  - gross_weight
-  - displacement
-  - length
+  - Age
+  - Vintage
 
 
 mm_columns:
-  - subscription_length
-  - vehicle_age
-  - gross_weight
+  - Annual_Premium

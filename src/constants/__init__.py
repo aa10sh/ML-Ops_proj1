@@ -3,7 +3,7 @@ from datetime import date
 
 # For MongoDB connection
 DATABASE_NAME = "Proj1"
-COLLECTION_NAME = "Proj1-Data"
+COLLECTION_NAME = "Proj1-data"
 MONGODB_URL_KEY = "MONGODB_URL"
 
 PIPELINE_NAME: str = ""
@@ -11,7 +11,7 @@ ARTIFACT_DIR: str = "artifact"
 
 MODEL_FILE_NAME = "model.pkl"
 
-TARGET_COLUMN = "claim_status"
+TARGET_COLUMN = "Response"
 CURRENT_YEAR = date.today().year
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 
@@ -29,7 +29,7 @@ REGION_NAME = "us-east-1"
 """
 Data Ingestion related constant start with DATA_INGESTION VAR NAME
 """
-DATA_INGESTION_COLLECTION_NAME: str = "Proj1-Data"
+DATA_INGESTION_COLLECTION_NAME: str = "Proj1-data"
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
 DATA_INGESTION_INGESTED_DIR: str = "ingested"
